@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -30,6 +31,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
@@ -97,28 +99,40 @@ fun PizzaImagePager(
                 }
         )
 
-        HorizontalPager(
-            state = pagerState,
-            userScrollEnabled = zoomState.userScrollEnabled,
-            contentPadding = PaddingValues(horizontal = paddingHorizontal),
-            beyondViewportPageCount = 1
-        ) { page ->
-            val item = items.getOrNull(page)
-            PizzaImagePage(
-                pagerState = pagerState,
-                page = page,
-                item = item,
-                imageSize = imageSize,
-                paddingHorizontal = paddingHorizontal,
-                modifier = Modifier
-                    .clickable(interactionSource = null, indication = null) {
-                        onImageClick(page)
-                    }
-                    .pointerInput(page) {
-                        with(zoomState) {
-                            handleZoomGesture()
+        Box {
+            HorizontalPager(
+                state = pagerState,
+                userScrollEnabled = zoomState.userScrollEnabled,
+                contentPadding = PaddingValues(horizontal = paddingHorizontal),
+                beyondViewportPageCount = 1
+            ) { page ->
+                val item = items.getOrNull(page)
+                PizzaImagePage(
+                    pagerState = pagerState,
+                    page = page,
+                    item = item,
+                    imageSize = imageSize,
+                    paddingHorizontal = paddingHorizontal,
+                    modifier = Modifier
+                        .clickable(interactionSource = null, indication = null) {
+                            onImageClick(page)
                         }
-                    }
+                        .pointerInput(page) {
+                            with(zoomState) {
+                                handleZoomGesture()
+                            }
+                        }
+                )
+            }
+            Image(
+                painter = painterResource(R.drawable.circle_blur),
+                contentDescription = null,
+                modifier = Modifier.align(Alignment.Center)
+            )
+            Image(
+                painter = painterResource(R.drawable.ic_find),
+                contentDescription = null,
+                modifier = Modifier.align(Alignment.Center)
             )
         }
 

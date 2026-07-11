@@ -58,8 +58,8 @@ fun PizzaOrderScreen(modifier: Modifier = Modifier) {
             it.copy(size = size)
         }
     } }
-    val onNavigateUpClick: () -> Unit = remember(refetchData) { {
-        refetchData = !refetchData
+    val onNavigateUpClick: () -> Unit = remember { {
+
     } }
     var splashState by remember { mutableStateOf(PizzaSplashState.Running) }
     val onSplashStateChanged: (PizzaSplashState) -> Unit = remember { {

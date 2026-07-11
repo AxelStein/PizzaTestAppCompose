@@ -176,7 +176,7 @@ fun PizzaOrderLayout(
             images,
             onImageZoom = onPizzaImageZoomed,
             modifier = Modifier
-                //.padding(top = 100.dp)
+                // .padding(top = 100.dp)
                 .alpha(1f - pizzaImageZoomProgress)
         )
 
